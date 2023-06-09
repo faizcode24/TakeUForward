@@ -1,0 +1,31 @@
+we will linerly travesre the array will make sum = 0 and max = arr[0] and
+
+ start travesring or checking the array if the sum goes to -ve we will store the 0 over there,
+
+ if not then we keep the max sum over there untill the array is travese
+
+public class Main {
+    public static long maxSubarraySum(int[] arr, int n) {
+        long maxi = Long.MIN_VALUE; // maximum sum
+        long sum = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            sum += arr[i];
+
+            if (sum > maxi) {
+                maxi = sum;
+            }
+
+            
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+
+    
+
+      
+
+        return maxi;
+    } 
