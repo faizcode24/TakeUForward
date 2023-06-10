@@ -1,0 +1,73 @@
+Sort Colors
+
+Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+
+We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+
+You must solve this problem without using the library's sort function.
+
+ 
+
+Example 1:
+
+Input: nums = [2,0,2,1,1,0]
+Output: [0,0,1,1,2,2]
+Example 2:
+
+Input: nums = [2,0,1]
+Output: [0,1,2]
+Brute apraoch : Here we can sort the array by using the any sorting algorithm but TC will be high
+
+Another method is to count the no of zeros, one and two and the store it but TC will be O(N)
+
+So the best method is the DUTCH FLAG ALGORITHM
+
+we will use three pointer approach low, mid and high
+
+arr[0….low-1] contains 0. [Extreme left part]
+arr[low….mid-1] contains 1.
+arr[high+1….n-1] contains 2. [Extreme right part], n = size of the array
+
+Here, as the entire array is unsorted, we have placed the mid pointer in the first index and the high pointer in the last index.
+
+The low is also pointing to the first index as we have no other index before 0. 
+
+Here, we are mostly interested in placing the ‘mid’ pointer and the ‘high’ pointer as they represent the unsorted part in the hypothetical array.
+
+class Solution {
+    public void sortColors(int[] nums) {
+        int low =0;
+        int hi = nums.length -1 ;
+        int mid=0;
+
+        int temp;
+
+        while( mid <= hi){
+            switch(nums[mid]){
+                case 0:
+                {
+                    temp = nums[low];
+                    nums[low]= nums[mid];
+                    nums[mid] = temp;
+                    low++;
+                    mid++;
+                    break;
+                }
+
+                case 1 :
+                mid++;
+                break;
+
+                case 2:
+                {
+                    temp = nums[mid];
+                    nums[mid] = nums[hi];
+                    nums[hi] = temp;
+                    hi--;
+                    break;
+                }
+            }
+        }
+        
+    }
+}
