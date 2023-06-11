@@ -1,0 +1,41 @@
+You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+
+You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+
+Brute Approach:
+ Take another dummy matrix of n*n, and then take the first row of the matrix and put it in the last column of the dummy matrix, take the second row of the matrix,
+
+ and put it in the second last column of the matrix and so but TC will O(N*N)
+
+So the optimal approach
+ we will make the transpose of the matrix then we will will reverse the row of the matrix, after reversing the array our matrix is rotated
+
+class Solution {
+    public void rotate(int[][] matrix) {
+        int b = matrix.length;
+        //  matrix = a[][];
+        //first we will make the matrix to transpose
+
+        for(int i =0; i <b ; i++){
+            for(int j = i ; j< matrix[0].length; j++){
+                int temp = 0;
+                 temp =  matrix[i][j];
+                 matrix[i][j] = matrix[j][i];
+                 matrix[j][i] = temp; 
+                
+            }
+        }
+
+        //aftre cretating the transpose of an arrays we are now reversing the arrays to the answer
+
+        for(int i =0 ; i <b ; i++){
+            for(int j =0; j < b/2; j++){
+                int temp = 0;
+                temp = matrix[i][j];
+                matrix[i][j] = matrix[i][matrix.length-1-j];
+                matrix[i][matrix.length-1-j]= temp;
+            }
+        }
+        
+    }
+}
