@@ -1,0 +1,38 @@
+Problem Statement: Given an array of N integers, write a program to return an element that occurs more than N/2 times in the given array. You may consider that such an element always exists in the array.
+
+Example 1:
+
+Input Format: N = 3, nums[] = {3,2,3}
+
+Result: 3
+
+Explanation: When we just count the occurrences of each number and compare with half of the size of the array, you will get 3 for the above solution. 
+
+we will use the Moree Volting Algorithm
+
+public class main {
+    public static int majorityElement(int []v) {
+        //size of the given array:
+        int n = v.length;
+        int cnt = 0; // count
+        int el = 0; // Element
+
+        //applying the algorithm:
+        for (int i = 0; i < n; i++) {
+            if (cnt == 0) {
+                cnt = 1;
+                el = v[i];
+            } else if (el == v[i]) cnt++;
+            else cnt--;
+        }
+
+        //checking if the stored element
+        // is the majority element:
+        int cnt1 = 0;
+        for (int i = 0; i < n; i++) {
+            if (v[i] == el) cnt1++;
+        }
+
+        if (cnt1 > (n / 2)) return el;
+        return -1;
+    }
