@@ -1,0 +1,35 @@
+Given the head of a singly linked list, return the middle node of the linked list.
+
+If there are two middle nodes, return the second middle node.
+
+ 
+
+Example 1:
+
+
+Input: head = [1,2,3,4,5]
+Output: [3,4,5]
+Explanation: The middle node of the list is node 3.
+
+Basic Approach 
+
+we cab travese the linked list and find it ia odd or even if odd = n/2 +m 1 is anweer if even n/2 is the answer because 2nd middle is the answer
+
+best Approach
+
+tortoise-Hash-Approach
+
+we will use the two pointer slow and fast slow will move by the 1 and fast by 2 when fast will reach end or null till then slow will reach middle 
+
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head, fast= head;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+        
+    }
+}
+
