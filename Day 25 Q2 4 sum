@@ -1,0 +1,100 @@
+Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:
+
+0 <= a, b, c, d < n
+a, b, c, and d are distinct.
+nums[a] + nums[b] + nums[c] + nums[d] == target
+You may return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: nums = [1,0,-1,0,-2,2], target = 0
+Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+Example 2:
+
+Input: nums = [2,2,2,2,2], target = 8
+Output: [[2,2,2,2]]
+
+
+optimal approach
+
+first we will sort the array
+then we will fixed 2 pointer i and j and will 1 pointer will move k , l
+
+once the k pointer will move forward and l pointer will move backward untill they cross each other and i and j shold be fixed
+
+now check the sum
+Now we will check the sum i.e. nums[i]+nums[j]+nums[k]+nums[l].
+If the sum is greater, then we need lesser elements and so we will decrease the value of l.
+If the sum is lesser than the target, we need a bigger value and so we will increase the value of k. 
+If the sum is equal to the target, we will simply insert the quad i.e. nums[i], nums[j], nums[k], and nums[l] into our answer and move the pointers k and l skipping the duplicate elements(i.e. by checking the adjacent elements while moving the pointers).
+
+
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+
+        int n = nums.length;
+        List<List<Integer>> ans = new ArrayList<>();
+
+        Arrays.sort(nums);
+
+        for(int i =0; i< n - 3; i++){
+            if(i > 0 && nums[i] == nums[i - 1])
+            continue;
+
+
+            for(int j = i + 1; j < n - 2; j++){
+                if(j > i + 1 && nums[j] == nums [j - 1])
+                continue;
+
+
+                int left = j + 1;
+                int right = n - 1;
+
+                while( left < right){
+                    long sum = (long) nums[i] + nums[j] + nums[left] + nums[right];
+
+                     if (sum < target) {
+                        left++;
+                    } else if (sum > target) {
+                        right--;
+                    } else {
+                        ans.add(Arrays.asList(nums[i], nums[j], nums[left], nums[right]));
+                        // Skip duplicates
+                        while (left < right && nums[left] == nums[left + 1]) {
+                            left++;
+                        }
+                        while (left < right && nums[right] == nums[right - 1]) {
+                            right--;
+                        }
+                        left++;
+                        right--;
+                    
+
+
+                    //   if(sum == target){
+                    //       List<Integer> temp = new ArrayList<>();
+
+                    //       temp.add(nums[i]);
+                    //       temp.add(nums[j]);
+                    //       temp.add(nums[k]);
+                    //       temp.add(nums[l]);
+                    //       k++;
+                    //       l--;
+
+                    //       while(k< l && nums[k] == nums[k - 1]) k++;
+
+                    //       while(k<l && nums[l] == nums[l + 1])l--;
+                    //   }
+
+                    //   else if (sum < target)k++;
+                    //   else l--;
+                }
+            }
+        }
+        }
+        return ans;
+        
+    }
+}
