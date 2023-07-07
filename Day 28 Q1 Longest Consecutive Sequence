@@ -1,0 +1,60 @@
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+
+You must write an algorithm that runs in O(n) time.
+
+ 
+
+Example 1:
+
+Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+Example 2:
+
+Input: nums = [0,3,7,2,5,8,4,6,0,1]
+Output: 9
+
+
+Brute Approach 
+
+we can simply sort the array abd run a for loop to find the longest consecutive sequence
+
+Optimal approach:
+
+we will push all the element in the Hashset run a lop and check for the any no of (x) form the starting no of th consecutive sequence by checking if the
+hashset containes (x-1) or not if x is the starting number of CS  will keep searching for the no y = x+ 1, x+ 2.... and stop for the y which is  not present
+in the hashset using this we can calculate the length of the consecutive sequence
+
+class Solution {
+    public int longestConsecutive(int[] nums) {
+
+        if(nums.length == 0)
+         
+        return 0;
+        int c = 0, lastSmall = Integer.MIN_VALUE, longestSeq = 1;
+        Arrays.sort(nums);
+
+        for(int i = 0; i < nums.length; i++) {
+            if(lastSmall + 1 != nums[i] && lastSmall != nums[i]) {
+                c = 1;
+
+
+                lastSmall = nums[i];
+            } 
+            
+            if(lastSmall + 1 == nums[i]) {
+                c++;
+                lastSmall = nums[i];
+            }
+
+            longestSeq = Math.max(longestSeq, c);
+        }
+        return longestSeq;
+    }
+}
+
+
+
+
+
+
